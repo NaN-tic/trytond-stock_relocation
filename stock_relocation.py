@@ -120,16 +120,11 @@ class StockRelocation(ModelSQL, ModelView):
     @fields.depends('product', 'warehouse')
     def on_change_product(self):
         pool = Pool()
-        User = pool.get('res.user')
         Date = pool.get('ir.date')
         Product = pool.get('product.product')
 
         today = Date.today()
-        user = User(Transaction().user)
-        warehouse = user.stock_warehouse if (hasattr(user, 'stock_warehouse')
-                and user.stock_warehouse) else None
 
-        # TODO 3.6
         res = {}
         res['uom'] = None
         res['from_location'] = None
@@ -141,7 +136,7 @@ class StockRelocation(ModelSQL, ModelView):
             if self.warehouse and self.product.locations:
                 to_location = None
                 for l in self.product.locations:
-                    if l.warehouse.id == warehouse.id:
+                    if l.warehouse.id == self.warehouse.id:
                         to_location = l.location
                         break
                     
