@@ -26,8 +26,12 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.action.act_window" id="act_stock_relocation_employee_form">
             <field name="name">Stock Relocation by Employee</field>
             <field name="res_model">stock.relocation</field>
-            <field name="domain">[('employee.id', '=', Eval('context', {}).get('employee', -1))]</field>
-            <field name="search_value">[('planned_date', '>=', Date())]</field>
+            <field name="domain"
+                eval="[('employee.id', '=', Eval('context', {}).get('employee', -1))]"
+                pyson="1"/>
+            <field name="search_value"
+                eval="[('planned_date', '>=', Date())]"
+                pyson="1"/>
         </record>
         <record model="ir.action.act_window.view" id="act_stock_relocation_employee_view1">
             <field name="sequence" eval="1"/>
@@ -42,7 +46,9 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.action.act_window.domain" id="act_stock_relocation_employee_draft">
             <field name="name">Draft</field>
             <field name="sequence" eval="10"/>
-            <field name="domain">[('state', '=', 'draft')]</field>
+            <field name="domain"
+                eval="[('state', '=', 'draft')]"
+                pyson="1"/>
             <field name="act_window" ref="act_stock_relocation_employee_form"/>
         </record>
         <record model="ir.action.act_window.domain" id="act_stock_relocation_employee_all">

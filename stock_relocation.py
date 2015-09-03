@@ -120,42 +120,33 @@ class StockRelocation(ModelSQL, ModelView):
     @fields.depends('product', 'warehouse')
     def on_change_product(self):
         pool = Pool()
-        User = pool.get('res.user')
         Date = pool.get('ir.date')
         Product = pool.get('product.product')
 
         today = Date.today()
-        user = User(Transaction().user)
-        warehouse = user.stock_warehouse if (hasattr(user, 'stock_warehouse')
-                and user.stock_warehouse) else None
 
-        # TODO 3.6
-        res = {}
-        res['uom'] = None
-        res['from_location'] = None
-        res['from_location.rec_name'] = None
+        self.uom = None
+        self.from_location = None
         if self.product:
-            res['uom'] = self.product.default_uom.id
-            res['uom.rec_name'] = self.product.default_uom.rec_name
-            res['unit_digits'] = self.product.default_uom.digits
+            self.uom = self.product.default_uom
+            self.uom.rec_name = self.product.default_uom.rec_name
+            self.unit_digits = self.product.default_uom.digits
             if self.warehouse and self.product.locations:
                 to_location = None
                 for l in self.product.locations:
-                    if l.warehouse.id == warehouse.id:
+                    if l.warehouse.id == self.warehouse.id:
                         to_location = l.location
                         break
                     
                 if to_location:
-                    res['from_location'] = to_location.id
-                    res['from_location.rec_name'] = to_location.rec_name
+                    self.from_location = to_location
 
                     with Transaction().set_context(
                             forecast=False,
                             stock_date_end=today,
                             locations=[to_location.id]):
                         product = Product(self.product.id)
-                        res['quantity'] =  product.quantity
-        return res
+                        self.quantity =  product.quantity
 
     @fields.depends('uom')
     def on_change_with_unit_digits(self, name=None):
@@ -171,8 +162,7 @@ class StockRelocation(ModelSQL, ModelView):
 
         move = Move()
         move.product = relocation.product
-        for k, v in move.on_change_product().iteritems():
-            setattr(move, k, v)
+        move.on_change_product()
         move.uom = relocation.uom
         move.quantity = relocation.quantity
         move.from_location = relocation.from_location
@@ -232,9 +222,10 @@ class StockRelocation(ModelSQL, ModelView):
 
             to_write = []
             for move in moves:
-                to_write.extend(([move.origin], {
-                            'move': move,
-                            'state': 'done'
-                            }))
+                relocation = move.origin
+                relocation.move = move
+                relocation.state = 'done'
+                to_write.append(relocation)
+
             if to_write:
-                cls.write(*to_write)
+                cls.save(to_write)
