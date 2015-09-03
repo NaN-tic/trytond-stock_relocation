@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- This file is part stock_relocation module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
+<data>
+    <xpath expr="/form/field[@name=&quot;shipment_internal_sequence&quot;]"
+            position="after">
+        <label name="to_relocation"/>
+        <field name="to_relocation"/>
+    </xpath>
+</data>

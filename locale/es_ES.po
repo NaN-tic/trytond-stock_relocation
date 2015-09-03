@@ -1,0 +1,137 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:stock.relocation:"
+msgid "There are %s of \"%s\" and you try to relocate %s units."
+msgstr "Hay %s de \"%s\" y desea reubicar %s unidades."
+
+msgctxt "field:stock.configuration,to_relocation:"
+msgid "To ReLocation"
+msgstr "Destino reubicación"
+
+msgctxt "field:stock.relocation,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:stock.relocation,create_date:"
+msgid "Create Date"
+msgstr "Fecha creación"
+
+msgctxt "field:stock.relocation,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+msgctxt "field:stock.relocation,employee:"
+msgid "Employee"
+msgstr "Empleado"
+
+msgctxt "field:stock.relocation,from_location:"
+msgid "From Location"
+msgstr "Desde ubicación"
+
+msgctxt "field:stock.relocation,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:stock.relocation,move:"
+msgid "Move"
+msgstr "Movimiento"
+
+msgctxt "field:stock.relocation,planned_date:"
+msgid "Planned Date"
+msgstr "Fecha estimada"
+
+msgctxt "field:stock.relocation,product:"
+msgid "Product"
+msgstr "Producto"
+
+msgctxt "field:stock.relocation,quantity:"
+msgid "Quantity"
+msgstr "Cantidad"
+
+msgctxt "field:stock.relocation,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:stock.relocation,state:"
+msgid "State"
+msgstr "Estado"
+
+msgctxt "field:stock.relocation,to_location:"
+msgid "To Location"
+msgstr "A ubicación"
+
+msgctxt "field:stock.relocation,unit_digits:"
+msgid "Unit Digits"
+msgstr "Decimales de la unidad"
+
+msgctxt "field:stock.relocation,uom:"
+msgid "Uom"
+msgstr "Uom"
+
+msgctxt "field:stock.relocation,warehouse:"
+msgid "Warehouse"
+msgstr "Almacén"
+
+msgctxt "field:stock.relocation,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:stock.relocation,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "model:ir.action,name:act_stock_relocation_employee_form"
+msgid "Stock Relocation by Employee"
+msgstr "Reubicaciones por empleado"
+
+msgctxt "model:ir.action,name:act_stock_relocation_form"
+msgid "Stock Relocation"
+msgstr "Reubicación de stock"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_stock_relocation_employee_all"
+msgid "All"
+msgstr "Todos"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_stock_relocation_employee_draft"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "model:ir.ui.menu,name:menu_stock_relocation"
+msgid "ReLocation"
+msgstr "Reubicación"
+
+msgctxt "model:ir.ui.menu,name:menu_stock_relocation_all"
+msgid "All ReLocations"
+msgstr "Todas reubicaciones"
+
+msgctxt "model:ir.ui.menu,name:menu_stock_relocation_employee"
+msgid "ReLocation"
+msgstr "Reubicación"
+
+msgctxt "model:stock.relocation,name:"
+msgid "Stock Relocation"
+msgstr "Reubicación de stock"
+
+msgctxt "selection:stock.relocation,state:"
+msgid "Done"
+msgstr "Realizado"
+
+msgctxt "selection:stock.relocation,state:"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "view:stock.relocation:"
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgctxt "view:stock.relocation:"
+msgid "ReLocation"
+msgstr "Reubicación"
+
+msgctxt "view:stock.relocation:"
+msgid "ReLocations"
+msgstr "Reubicaciones"

@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!-- This file is part stock_relocation module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <!-- Main Menu -->
+        <menuitem parent="stock.menu_stock" name="ReLocation" id="menu_stock_relocation"/>
+        <record model="ir.ui.menu-res.group" id="menu_stock_relocation_group_stock">
+            <field name="menu" ref="menu_stock_relocation"/>
+            <field name="group" ref="stock.group_stock"/>
+        </record>
+
+        <!-- Views -->
+        <record model="ir.ui.view" id="stock_relocation_view_form">
+            <field name="model">stock.relocation</field>
+            <field name="type">form</field>
+            <field name="name">stock_relocation_form</field>
+        </record>
+        <record model="ir.ui.view" id="stock_relocation_view_tree">
+            <field name="model">stock.relocation</field>
+            <field name="type">tree</field>
+            <field name="name">stock_relocation_tree</field>
+        </record>
+
+        <!-- By Employee -->
+        <record model="ir.action.act_window" id="act_stock_relocation_employee_form">
+            <field name="name">Stock Relocation by Employee</field>
+            <field name="res_model">stock.relocation</field>
+            <field name="domain">[('employee.id', '=', Eval('context', {}).get('employee', -1))]</field>
+            <field name="search_value">[('planned_date', '>=', Date())]</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_stock_relocation_employee_view1">
+            <field name="sequence" eval="1"/>
+            <field name="view" ref="stock_relocation_view_tree"/>
+            <field name="act_window" ref="act_stock_relocation_employee_form"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_stock_relocation_employee_view2">
+            <field name="sequence" eval="1"/>
+            <field name="view" ref="stock_relocation_view_form"/>
+            <field name="act_window" ref="act_stock_relocation_employee_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_stock_relocation_employee_draft">
+            <field name="name">Draft</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain">[('state', '=', 'draft')]</field>
+            <field name="act_window" ref="act_stock_relocation_employee_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_stock_relocation_employee_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain"></field>
+            <field name="act_window" ref="act_stock_relocation_employee_form"/>
+        </record>
+
+        <menuitem
+            name="ReLocation"
+            parent="menu_stock_relocation"
+            action="act_stock_relocation_employee_form"
+            id="menu_stock_relocation_employee" icon="tryton-list"/>
+
+        <!-- Without Employee -->
+        <record model="ir.action.act_window" id="act_stock_relocation_form">
+            <field name="name">Stock Relocation</field>
+            <field name="res_model">stock.relocation</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_stock_relocation_view1">
+            <field name="sequence" eval="1"/>
+            <field name="view" ref="stock_relocation_view_tree"/>
+            <field name="act_window" ref="act_stock_relocation_form"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_stock_relocation_view2">
+            <field name="sequence" eval="1"/>
+            <field name="view" ref="stock_relocation_view_form"/>
+            <field name="act_window" ref="act_stock_relocation_form"/>
+        </record>
+
+        <menuitem
+            name="All ReLocations"
+            parent="menu_stock_relocation"
+            action="act_stock_relocation_form"
+            id="menu_stock_relocation_all" icon="tryton-list"/>
+        <record model="ir.ui.menu-res.group" id="menu_stock_relocation_all_group_stock_admin">
+            <field name="menu" ref="menu_stock_relocation_all"/>
+            <field name="group" ref="stock.group_stock_admin"/>
+        </record>
+
+        <!-- Access -->
+        <record model="ir.model.access" id="access_stock_relocation">
+            <field name="model" search="[('model', '=', 'stock.relocation')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_stock_relocation_manager">
+            <field name="model" search="[('model', '=', 'stock.relocation')]"/>
+            <field name="group" ref="stock.group_stock"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+    </data>
+</tryton>

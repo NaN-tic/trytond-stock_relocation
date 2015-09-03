@@ -1,0 +1,139 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:stock.relocation:"
+msgid "There are %s of \"%s\" and you try to relocate %s units."
+msgstr ""
+"Hi han %s de \"%s\" i està intentant reubicar %s unitats.\n"
+"\n"
+
+msgctxt "field:stock.configuration,to_relocation:"
+msgid "To ReLocation"
+msgstr "Destí reubicació"
+
+msgctxt "field:stock.relocation,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:stock.relocation,create_date:"
+msgid "Create Date"
+msgstr "Data creació"
+
+msgctxt "field:stock.relocation,create_uid:"
+msgid "Create User"
+msgstr "Usuari creació"
+
+msgctxt "field:stock.relocation,employee:"
+msgid "Employee"
+msgstr "Empleat"
+
+msgctxt "field:stock.relocation,from_location:"
+msgid "From Location"
+msgstr "D'ubicació"
+
+msgctxt "field:stock.relocation,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:stock.relocation,move:"
+msgid "Move"
+msgstr "Moviment"
+
+msgctxt "field:stock.relocation,planned_date:"
+msgid "Planned Date"
+msgstr "Data estimada"
+
+msgctxt "field:stock.relocation,product:"
+msgid "Product"
+msgstr "Productes"
+
+msgctxt "field:stock.relocation,quantity:"
+msgid "Quantity"
+msgstr "Quantitat"
+
+msgctxt "field:stock.relocation,rec_name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:stock.relocation,state:"
+msgid "State"
+msgstr "Estat"
+
+msgctxt "field:stock.relocation,to_location:"
+msgid "To Location"
+msgstr "A la ubicació"
+
+msgctxt "field:stock.relocation,unit_digits:"
+msgid "Unit Digits"
+msgstr "Decimals d'unitat"
+
+msgctxt "field:stock.relocation,uom:"
+msgid "Uom"
+msgstr "UdM"
+
+msgctxt "field:stock.relocation,warehouse:"
+msgid "Warehouse"
+msgstr "Magatzem"
+
+msgctxt "field:stock.relocation,write_date:"
+msgid "Write Date"
+msgstr "Data modificació"
+
+msgctxt "field:stock.relocation,write_uid:"
+msgid "Write User"
+msgstr "Usuari modificació"
+
+msgctxt "model:ir.action,name:act_stock_relocation_employee_form"
+msgid "Stock Relocation by Employee"
+msgstr "Reubicacions per empleat"
+
+msgctxt "model:ir.action,name:act_stock_relocation_form"
+msgid "Stock Relocation"
+msgstr "Reubicació d'estoc"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_stock_relocation_employee_all"
+msgid "All"
+msgstr "Tots"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_stock_relocation_employee_draft"
+msgid "Draft"
+msgstr "Esborrany"
+
+msgctxt "model:ir.ui.menu,name:menu_stock_relocation"
+msgid "ReLocation"
+msgstr "Reubicació"
+
+msgctxt "model:ir.ui.menu,name:menu_stock_relocation_all"
+msgid "All ReLocations"
+msgstr "Totes reubicacions"
+
+msgctxt "model:ir.ui.menu,name:menu_stock_relocation_employee"
+msgid "ReLocation"
+msgstr "Reubicació"
+
+msgctxt "model:stock.relocation,name:"
+msgid "Stock Relocation"
+msgstr "Reubicació d'estoc"
+
+msgctxt "selection:stock.relocation,state:"
+msgid "Done"
+msgstr "Realitzat"
+
+msgctxt "selection:stock.relocation,state:"
+msgid "Draft"
+msgstr "Esborrany"
+
+msgctxt "view:stock.relocation:"
+msgid "Confirm"
+msgstr "Confirma"
+
+msgctxt "view:stock.relocation:"
+msgid "ReLocation"
+msgstr "Reubicació"
+
+msgctxt "view:stock.relocation:"
+msgid "ReLocations"
+msgstr "Reubicacions"
