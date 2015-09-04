@@ -24,7 +24,7 @@ class StockRelocation(ModelSQL, ModelView):
         required=True, states=STATES,
         depends=DEPENDS)
     warehouse = fields.Many2One('stock.location', "Warehouse",
-        required=True, states=STATES,
+        required=True, readonly=True,
         domain=[('type', '=', 'warehouse')],
         depends=DEPENDS)
     from_location = fields.Many2One('stock.location', 'From Location',
