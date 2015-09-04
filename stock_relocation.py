@@ -117,14 +117,30 @@ class StockRelocation(ModelSQL, ModelView):
     def default_company():
         return Transaction().context.get('company')
 
-    @fields.depends('product', 'warehouse')
-    def on_change_product(self):
+    def update_quantity(self):
         pool = Pool()
-        Date = pool.get('ir.date')
         Product = pool.get('product.product')
+        Date = pool.get('ir.date')
 
         today = Date.today()
 
+        if not self.from_location and self.warehouse and self.product.locations:
+            for l in self.product.locations:
+                if l.warehouse.id == self.warehouse.id:
+                    from_location = l.location
+                    break
+            self.from_location = from_location
+
+        if self.from_location:
+            with Transaction().set_context(
+                    forecast=False,
+                    stock_date_end=today,
+                    locations=[self.from_location.id]):
+                product = Product(self.product.id)
+                self.quantity = product.quantity
+
+    @fields.depends('product', 'warehouse', 'from_location')
+    def on_change_product(self):
         res = {}
         res['uom'] = None
         res['from_location'] = None
@@ -133,23 +149,11 @@ class StockRelocation(ModelSQL, ModelView):
             res['uom'] = self.product.default_uom.id
             res['uom.rec_name'] = self.product.default_uom.rec_name
             res['unit_digits'] = self.product.default_uom.digits
-            if self.warehouse and self.product.locations:
-                to_location = None
-                for l in self.product.locations:
-                    if l.warehouse.id == self.warehouse.id:
-                        to_location = l.location
-                        break
-                    
-                if to_location:
-                    res['from_location'] = to_location.id
-                    res['from_location.rec_name'] = to_location.rec_name
-
-                    with Transaction().set_context(
-                            forecast=False,
-                            stock_date_end=today,
-                            locations=[to_location.id]):
-                        product = Product(self.product.id)
-                        res['quantity'] =  product.quantity
+            self.update_quantity()
+            if self.from_location:
+                res['from_location'] = self.from_location.id
+                res['from_location.rec_name'] = self.from_location.rec_name
+            res['quantity'] = self.quantity or 0
         return res
 
     @fields.depends('uom')
@@ -157,6 +161,13 @@ class StockRelocation(ModelSQL, ModelView):
         if self.uom:
             return self.uom.digits
         return 2
+
+    @fields.depends('product', 'warehouse', 'from_location')
+    def on_change_with_quantity(self, name=None):
+        if self.product and self.warehouse and self.from_location:
+            self.update_quantity()
+            return self.quantity or 0
+        return 0
 
     @classmethod
     def _get_move(cls, relocation):
