@@ -139,7 +139,7 @@ class StockRelocation(ModelSQL, ModelView):
                 product = Product(self.product.id)
                 self.quantity = product.quantity
 
-    @fields.depends('product', 'warehouse', 'from_location')
+    @fields.depends('quantity', 'product', 'warehouse', 'from_location')
     def on_change_product(self):
         res = {}
         res['uom'] = None
