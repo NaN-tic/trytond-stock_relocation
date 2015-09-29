@@ -30,7 +30,7 @@ msgstr "Empleat"
 
 msgctxt "field:stock.relocation,from_location:"
 msgid "From Location"
-msgstr "D'ubicació"
+msgstr "Des d'ubicació"
 
 msgctxt "field:stock.relocation,id:"
 msgid "ID"
@@ -46,7 +46,7 @@ msgstr "Data estimada"
 
 msgctxt "field:stock.relocation,product:"
 msgid "Product"
-msgstr "Productes"
+msgstr "Producte"
 
 msgctxt "field:stock.relocation,quantity:"
 msgid "Quantity"
