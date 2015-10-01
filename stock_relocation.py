@@ -55,7 +55,7 @@ class StockRelocation(ModelSQL, ModelView):
     state = fields.Selection([
         ('draft', 'Draft'),
         ('done', 'Done'),
-        ], 'State')
+        ], 'State', readonly=True)
 
     @classmethod
     def __setup__(cls):
