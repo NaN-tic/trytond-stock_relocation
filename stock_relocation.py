@@ -107,6 +107,10 @@ class StockRelocation(ModelSQL, ModelView):
             if len(locations) == 1:
                 return locations[0].id
 
+    @classmethod
+    def default_unit_digits(cls):
+        return 2
+
     @staticmethod
     def default_to_location():
         Config = Pool().get('stock.configuration')
