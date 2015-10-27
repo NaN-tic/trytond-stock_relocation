@@ -64,15 +64,16 @@ class StockRelocation(ModelSQL, ModelView):
         cls._order.insert(1, ('warehouse', 'ASC'))
         cls._order.insert(2, ('from_location', 'ASC'))
         cls._buttons.update({
-                'confirm': {
-                    'invisible': ~Eval('state').in_(['draft']),
-                    },
-                })
+            'confirm': {
+                'invisible': ~Eval('state').in_(['draft']),
+                },
+            })
         cls._error_messages.update({
-                'quantity_by_location': (
-                    'There are %s of "%s" and you try to relocate %s units.'
-                    ),
-                })
+            'quantity_by_location': (
+                'Can not create new move because there are %s of "%s" in '
+                '"%s" and you try to relocate %s units.'
+                ),
+            })
 
     @staticmethod
     def default_state():
@@ -234,6 +235,13 @@ class StockRelocation(ModelSQL, ModelView):
 
             qty = pbl.get((from_location.id, product.id), 0)
             if qty == 0:
+                cls.raise_user_warning('stock_relocation%s.confirm' % r.id,
+                    'quantity_by_location', (
+                    qty,
+                    product.rec_name,
+                    from_location.rec_name,
+                    r.quantity,
+                    ))
                 continue
             del pbl[(from_location.id, product.id)] # remove pbl by key
 
@@ -242,8 +250,10 @@ class StockRelocation(ModelSQL, ModelView):
                     'quantity_by_location', (
                     qty,
                     product.rec_name,
+                    from_location.rec_name,
                     r.quantity,
                     ))
+                continue
             move = cls._get_move(r)
             to_create.append(move)
 
