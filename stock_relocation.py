@@ -130,11 +130,13 @@ class StockRelocation(ModelSQL, ModelView):
         today = Date.today()
 
         if not self.from_location and self.warehouse and self.product.locations:
+            from_location = None
             for l in self.product.locations:
                 if l.warehouse.id == self.warehouse.id:
                     from_location = l.location
                     break
-            self.from_location = from_location
+            if from_location:
+                self.from_location = from_location
 
         if self.from_location:
             with Transaction().set_context(
