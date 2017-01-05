@@ -1,5 +1,5 @@
 #This file is part stock_relocation module for Tryton.
-#The COPYRIGHT file at the top level of this repository contains 
+#The COPYRIGHT file at the top level of this repository contains
 #the full copyright notices and license terms.
 from trytond.model import ModelSQL, ModelView, fields
 from trytond.pool import Pool
@@ -191,32 +191,12 @@ class StockRelocation(ModelSQL, ModelView):
         return move
 
     @classmethod
-    def _get_warehouse(cls, location):
-        if location.type == 'warehouse':
-            return location
-        if location.parent:
-            return cls._get_warehouse(location.parent)
-        return None
-
-    @classmethod
-    def get_product_location(cls, product, location):
-        ProductLocation = Pool().get('stock.product.location')
-
-        prodloc = ProductLocation()
-        prodloc.product = product
-        prodloc.warehouse = cls._get_warehouse(location)
-        prodloc.location = location
-        prodloc.sequence = 999
-        return prodloc
-
-    @classmethod
     @ModelView.button
     def confirm(cls, relocations):
         pool = Pool()
         Date = pool.get('ir.date')
         Product = pool.get('product.product')
         Move = pool.get('stock.move')
-        ProductLocation = pool.get('stock.product.location')
 
         today = Date.today()
         location_ids = set()
@@ -225,7 +205,7 @@ class StockRelocation(ModelSQL, ModelView):
         for r in relocations:
             location_ids.add(r.from_location.id)
             products_ids.add(r.product.id)
-            
+
         with Transaction().set_context(forecast=False, stock_date_end=today):
             pbl = Product.products_by_location(list(location_ids),
                 list(products_ids), grouping=('product',))
@@ -258,22 +238,6 @@ class StockRelocation(ModelSQL, ModelView):
                 continue
             move = cls._get_move(r)
             to_create.append(move)
-
-            to_location = r.to_location
-            locations = [l.location for l in product.locations]
-
-            #new product location
-            if not to_location in locations:
-                prodloc = cls.get_product_location(product, to_location)
-                prodloc.save()
-            #delete from_location if same warehouse to_location
-            if r.quantity == qty:
-                from_warehouse = cls._get_warehouse(from_location)
-                to_warehouse = cls._get_warehouse(to_location)
-                if from_warehouse == to_warehouse:
-                    loc_to_delete = [l for l in product.locations if l.location == from_location]  
-                    if loc_to_delete:
-                        ProductLocation.delete(loc_to_delete)
 
         if to_create:
             moves = Move.create([c._save_values for c in to_create])
