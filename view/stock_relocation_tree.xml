@@ -2,9 +2,9 @@
 <!-- This file is part stock_relocation module for Tryton.
 The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
 <tree string="ReLocations" editable="bottom">
+    <field name="from_location"/>
     <field name="product"/>
     <field name="quantity"/>
-    <field name="from_location"/>
     <field name="to_location"/>
     <field name="warehouse"/>
     <field name="planned_date"/>

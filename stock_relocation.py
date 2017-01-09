@@ -129,15 +129,6 @@ class StockRelocation(ModelSQL, ModelView):
 
         today = Date.today()
 
-        if not self.from_location and self.warehouse and self.product.locations:
-            from_location = None
-            for l in self.product.locations:
-                if l.warehouse.id == self.warehouse.id:
-                    from_location = l.location
-                    break
-            if from_location:
-                self.from_location = from_location
-
         if self.from_location:
             with Transaction().set_context(
                     forecast=False,
@@ -149,7 +140,6 @@ class StockRelocation(ModelSQL, ModelView):
     @fields.depends('quantity', 'product', 'warehouse', 'from_location')
     def on_change_product(self):
         self.uom = None
-        self.from_location = None
         if self.product:
             self.uom = self.product.default_uom
             self.unit_digits = self.product.default_uom.digits
